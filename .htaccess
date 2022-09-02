@@ -1,0 +1,10 @@
+# Redirect all requests to the public folder.
+# This prevents unauthorized access to resources.
+
+RewriteEngine On
+RewriteBase /nuber/
+
+RewriteCond %{THE_REQUEST} /nuber/public/([^\s?]*) [NC]
+RewriteRule ^ %1 [L,NE,R=302]
+
+RewriteRule ^((?!public/).*)$ /nuber/public/$1 [L,NC]
