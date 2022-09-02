@@ -21,8 +21,8 @@ class LoginController
 
             $success = true;
             try {
-                $model->setUsername(htmlspecialchars($_POST['username']));
-                $model->setPassword(htmlspecialchars($_POST['password']));
+                $model->setUsername($_POST['username']);
+                $model->setPassword($_POST['password']);
             } catch(\Exception $e) {
                 $error = $e->getMessage();
                 $success = false;
