@@ -94,8 +94,6 @@ class SignupController extends \App\DatabaseHandler
                 $_SESSION["user_email"] = $model->getEmail();
                 $_SESSION["user_accountType"] = $model->getAccountType();
                 
-                header("Location: landing.php");
-
             } catch(\Exception $e) {
                 $error = $e->getMessage();
                 $success = false;
@@ -104,7 +102,7 @@ class SignupController extends \App\DatabaseHandler
 
             if($success) {
                 // There were no errors, take user to the landing page.
-                // TODO
+                header("Location: landing.php");
             } else {
                 // There were errors, display signup page with error message.
                 require_once APP_DIR . '/View/SignupView.php';
