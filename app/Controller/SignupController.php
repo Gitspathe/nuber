@@ -84,7 +84,7 @@ class SignupController extends \App\DatabaseHandler
                 // Verification complete, check database.
                 $this->checkUser();
 
-                // User does not exist and no DB errors, so add the user.
+                // User does not exist and no DB errors - so add the user.
                 $this->registerUser();
 
             } catch(\Exception $e) {
@@ -94,9 +94,10 @@ class SignupController extends \App\DatabaseHandler
             }
 
             if($success) {
-                // Check if account exists...
-                // Then sign up...
+                // There were no errors, take user to the landing page.
+                // TODO
             } else {
+                // There were errors, display signup page with error message.
                 require_once APP_DIR . '/View/SignupView.php';
             }
 
