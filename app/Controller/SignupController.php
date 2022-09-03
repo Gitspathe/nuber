@@ -89,7 +89,7 @@ class SignupController extends \App\DatabaseHandler
 
                 // Registration complete - go to landing page.
                 session_start();
-                $_SESSION["is_logged_in"] = 1;
+                $_SESSION["auth"] = 1;
                 $_SESSION["user_username"] = $model->getUsername();
                 $_SESSION["user_email"] = $model->getEmail();
                 $_SESSION["user_accountType"] = $model->getAccountType();
@@ -103,6 +103,7 @@ class SignupController extends \App\DatabaseHandler
             if($success) {
                 // There were no errors, take user to the landing page.
                 header("Location: landing.php");
+                exit;
             } else {
                 // There were errors, display signup page with error message.
                 require_once APP_DIR . '/View/SignupView.php';

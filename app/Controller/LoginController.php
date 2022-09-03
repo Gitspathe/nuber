@@ -91,7 +91,7 @@ class LoginController extends \App\DatabaseHandler
                 
                 // Start session.
                 session_start();
-                $_SESSION["is_logged_in"] = 1;
+                $_SESSION["auth"] = 1;
                 $_SESSION["user_username"] = $userInfo["user_username"];
                 $_SESSION["user_email"] = $userInfo["user_email"];
                 $_SESSION["user_accountType"] = $userInfo["user_accountType"];
@@ -104,6 +104,7 @@ class LoginController extends \App\DatabaseHandler
             if($success) {
                 // There were no errors - take user to the landing page.
                 header("Location: landing.php");
+                exit;
             } else {
                 // There were errors - display login page with error messages.
                 require_once APP_DIR . '/View/LoginView.php';
