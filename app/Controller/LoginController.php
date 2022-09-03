@@ -12,6 +12,15 @@ class LoginController extends \App\DatabaseHandler
         $this->model = new \App\Model\LoginModel();
     }
 
+    protected function checkPost()
+    {
+        if(isset($_POST["username"]) 
+        || isset($_POST["password"])) {
+            return true;
+        }
+        return false;
+    }
+
     protected function checkUser() 
     {
         $username = $this->model->getUsername();
@@ -66,7 +75,7 @@ class LoginController extends \App\DatabaseHandler
         $error = null;
 
         // Attempted login.
-        if(isset($_POST['username']) || isset($_POST['password'])) {
+        if($this->checkPost()) {
 
             $success = true;
             try {
@@ -82,9 +91,12 @@ class LoginController extends \App\DatabaseHandler
                 
                 // Start session.
                 session_start();
+                $_SESSION["is_logged_in"] = 1;
                 $_SESSION["user_username"] = $userInfo["user_username"];
                 $_SESSION["user_email"] = $userInfo["user_email"];
                 $_SESSION["user_accountType"] = $userInfo["user_accountType"];
+
+                header("Location: landing.php");
 
             } catch(\Exception $e) {
                 $error = $e->getMessage();

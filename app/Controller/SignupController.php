@@ -87,6 +87,15 @@ class SignupController extends \App\DatabaseHandler
                 // User does not exist and no DB errors - so add the user.
                 $this->registerUser();
 
+                // Registration complete - go to landing page.
+                session_start();
+                $_SESSION["is_logged_in"] = 1;
+                $_SESSION["user_username"] = $model->getUsername();
+                $_SESSION["user_email"] = $model->getEmail();
+                $_SESSION["user_accountType"] = $model->getAccountType();
+                
+                header("Location: landing.php");
+
             } catch(\Exception $e) {
                 $error = $e->getMessage();
                 $success = false;
