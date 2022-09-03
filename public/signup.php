@@ -4,7 +4,7 @@
 
 <?php
 
-require('constants.php');
+require("../app/Constants.php");
 require(APP_DIR . '/Model/SignupModel.php');
 require(APP_DIR . '/Controller/SignupController.php');
 

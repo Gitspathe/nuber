@@ -1,5 +1,5 @@
 <?php 
-require("constants.php");
+require("../app/Constants.php");
 ?>
 
 <!DOCTYPE html>

@@ -1,7 +1,9 @@
 <?php
 namespace App\Controller;
 
-class SignupController 
+require(APP_DIR . "/DatabaseHandler.php");
+
+class SignupController extends \App\DatabaseHandler
 {
     private $model;
 
@@ -10,7 +12,7 @@ class SignupController
         $this->model = new \App\Model\SignupModel();
     }
 
-    public function checkPost()
+    protected function checkPost()
     {
         if(isset($_POST["email"]) 
         || isset($_POST["username"]) 
@@ -20,6 +22,41 @@ class SignupController
             return true;
         }
         return false;
+    }
+
+    protected function checkUser()
+    {
+        $username = $this->model->getUsername();
+        $email = $this->model->getEmail();
+
+        $pdo = $this->connect()->prepare("SELECT user_username from users WHERE user_username = ? OR user_email = ?;");
+
+        if(!$pdo->execute(array($username, $email))) {
+            $pdo = null;
+            throw new \Exception("DATABASE ERROR.");
+        }
+
+        if($pdo->rowCount() > 0) {
+            $pdo = null;
+            throw new \Exception("A user with that username or email already exists.");
+        }
+        $pdo = null;
+    }
+
+    protected function registerUser() 
+    {
+        $username = $this->model->getUsername();
+        $email = $this->model->getEmail();
+        $hashedPassword = password_hash($this->model->getPassword(), PASSWORD_DEFAULT);
+        $accountType = $this->model->getAccountType();
+        
+        $pdo = $this->connect()->prepare("INSERT INTO users (user_username, user_email, user_password, user_accountType) VALUES (?, ?, ?, ?);");
+
+        if(!$pdo->execute(array($username, $email, $hashedPassword, $accountType))) {
+            $pdo = null;
+            throw new \Exception("DATABASE ERROR.");
+        }
+        $pdo = null;
     }
 
     public function output()
@@ -33,6 +70,7 @@ class SignupController
 
             $success = true;
             try {
+                // Verify and set model values.
                 $model->setEmail($_POST["email"]);
                 $model->setUsername($_POST["username"]);
 
@@ -42,6 +80,13 @@ class SignupController
 
                 $model->setPassword($_POST["password"]);
                 $model->setAccountType($_POST["accountType"]);
+
+                // Verification complete, check database.
+                $this->checkUser();
+
+                // User does not exist and no DB errors, so add the user.
+                $this->registerUser();
+
             } catch(\Exception $e) {
                 $error = $e->getMessage();
                 $success = false;
