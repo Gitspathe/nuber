@@ -70,8 +70,9 @@ class SignupModel
     public function setAccountType($val)
     {
         $val = htmlspecialchars($val);
-        
-        // TODO.
+        if($val !== "driver" && $val !== "customer") {
+            throw new \Exception("Invalid account type.");
+        }
         $this->accountType = $val;
     }
 }

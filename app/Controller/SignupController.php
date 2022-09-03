@@ -41,6 +41,7 @@ class SignupController
                 }
 
                 $model->setPassword($_POST["password"]);
+                $model->setAccountType($_POST["accountType"]);
             } catch(\Exception $e) {
                 $error = $e->getMessage();
                 $success = false;
