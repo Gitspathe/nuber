@@ -1,9 +1,9 @@
 <?php
 namespace App\Controller;
 
-require(APP_DIR . "/DatabaseHandler.php");
+require(APP_DIR . "/Helper/DatabaseHandler.php");
 
-class SignupController extends \App\DatabaseHandler
+class SignupController extends \App\Helper\DatabaseHandler
 {
     private $model;
 
