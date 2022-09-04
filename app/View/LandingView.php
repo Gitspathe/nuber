@@ -14,5 +14,10 @@ if($error !== null) {
     print "<p>" . $error . "</p>";
 }
 
+if($_SESSION["user_accountType"] === "driver") {
+    $uploadController = new App\Controller\FileUploadController();
+    $uploadController->output();
+}
+
 print "<p>Welcome, " . $_SESSION["user_username"] . "</p>";
 ?>

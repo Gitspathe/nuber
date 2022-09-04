@@ -1,15 +1,15 @@
 <?php
 namespace App\Controller;
 
-require(APP_DIR . "/Controller/FileUploadController.php");
+require(APP_DIR . '/Model/FileUploadModel.php');
 
-class LandingController
+class FileUploadController
 {
     private $model;
 
     public function __construct() 
     {
-        $this->model = new \App\Model\LandingModel();
+        $this->model = new \App\Model\FileUploadModel();
     }
 
     public function output()
@@ -18,7 +18,7 @@ class LandingController
         $controller = $this;
         $error = null;
 
-        require_once APP_DIR . '/View/LandingView.php';
+        require_once APP_DIR . '/View/FileUploadView.php';
     }
 }
 ?>

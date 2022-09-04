@@ -5,7 +5,6 @@
 <?php
 
 require("../app/Helper/Constants.php");
-require(APP_DIR . '/Model/LoginModel.php');
 require(APP_DIR . '/Controller/LoginController.php');
 
 $controller = new App\Controller\LoginController();
