@@ -25,8 +25,18 @@ require("../app/Helper/Constants.php");
           <div class="content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
             <h3>Nuber</h3>
               <p>
-                Cillum dolor esse sit incididunt velit eiusmod magna ad nostrud officia aute dolor dolor. Magna esse ullamco pariatur adipisicing consectetur eu commodo officia. Ex cillum consequat mollit minim elit est deserunt occaecat nisi amet. Quis aliqua nostrud Lorem occaecat sunt. Eiusmod quis amet ullamco aliquip dolore ut incididunt duis adipisicing. Elit consequat nisi eiusmod aute ipsum sunt veniam do est. Occaecat mollit aliquip ut proident consectetur amet ex dolore consectetur aliqua elit.
+                Nuber. Uber - but with an N in front of it.
               </p>
+              <form action="login.php" style="display:inline;">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                    Login
+                </button>
+              </form>
+              <form action="signup.php" style="display:inline;">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="margin-left: 3vh">
+                    Sign Up
+                </button>
+              </form>
           </div>
         </div>
       </main>
