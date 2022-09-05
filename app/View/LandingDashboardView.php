@@ -27,9 +27,9 @@
           <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">face</i>Account</a>
           <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">library_music</i>Music</a>
           <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">directions_car</i>Route</a>
-          <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">logout</i>Sign Out</a>
+          <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">help_outline</i>Help</a>
           <div class="mdl-layout-spacer"></div>
-          <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
+          <a class="mdl-navigation__link" href="index.php?action=signout"><i class="material-icons" role="presentation">logout</i>Sign Out</a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">

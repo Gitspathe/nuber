@@ -17,6 +17,16 @@ require("../app/Helper/Constants.php");
     <script src="style/material.min.js"></script>
 </head>
 
+<?php
+// TODO: Make an index controller or something.
+if(isset($_GET["action"])) {
+  session_start();
+  if($_GET["action"] === "signout") {
+    $_SESSION = array();
+  }
+}
+?>
+
 <body>
     <div class="mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
       <main class="main mdl-layout__content">
