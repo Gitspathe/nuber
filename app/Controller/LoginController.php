@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 require(APP_DIR . "/Helper/DatabaseHandler.php");
+require(APP_DIR . "/Model/LoginModel.php");
 
 class LoginController extends \App\Helper\DatabaseHandler
 {
@@ -51,10 +52,9 @@ class LoginController extends \App\Helper\DatabaseHandler
     {
         $username = $this->model->getUsername();
         
-        $pdo = $this->connect()->prepare("SELECT user_username, user_email, user_accountType FROM users WHERE user_username = ?;");
+        $pdo = $this->connect()->prepare("SELECT user_ID, user_username, user_email, user_accountType, user_uploadedDocuments FROM users WHERE user_username = ?;");
 
         if(!$pdo->execute(array($username))) {
-            ECHO "WOO";
             $pdo = null;
             throw new \Exception("DATABASE ERROR.");
         }
@@ -92,9 +92,11 @@ class LoginController extends \App\Helper\DatabaseHandler
                 // Start session.
                 session_start();
                 $_SESSION["auth"] = 1;
+                $_SESSION["user_id"] = $userInfo["user_ID"];
                 $_SESSION["user_username"] = $userInfo["user_username"];
                 $_SESSION["user_email"] = $userInfo["user_email"];
                 $_SESSION["user_accountType"] = $userInfo["user_accountType"];
+                $_SESSION["user_uploadedDocuments"] = (int)$userInfo["user_uploadedDocuments"];
 
             } catch(\Exception $e) {
                 $error = $e->getMessage();

@@ -60,6 +60,26 @@ class SignupController extends \App\Helper\DatabaseHandler
         $pdo = null;
     }
 
+    protected function getUserInfo()
+    {
+        $username = $this->model->getUsername();
+        
+        $pdo = $this->connect()->prepare("SELECT user_ID, user_username, user_email, user_accountType, user_uploadedDocuments FROM users WHERE user_username = ?;");
+
+        if(!$pdo->execute(array($username))) {
+            $pdo = null;
+            throw new \Exception("DATABASE ERROR.");
+        }
+        if($pdo->rowCount() == 0) {
+            $pdo = null;
+            throw new \Exception("DATABASE ERROR.");
+        }
+
+        $ret = $pdo->fetchAll(\PDO::FETCH_ASSOC)[0];
+        $pdo = null;
+        return $ret;
+    }
+
     public function output()
     {
         $model = $this->model;
@@ -88,12 +108,17 @@ class SignupController extends \App\Helper\DatabaseHandler
                 // User does not exist and no DB errors - so add the user.
                 $this->registerUser();
 
+                // User is added, so fetch their info from the DB.
+                $userInfo = $this->getUserInfo();
+
                 // Registration complete - go to landing page.
                 session_start();
                 $_SESSION["auth"] = 1;
-                $_SESSION["user_username"] = $model->getUsername();
-                $_SESSION["user_email"] = $model->getEmail();
-                $_SESSION["user_accountType"] = $model->getAccountType();
+                $_SESSION["user_id"] = $userInfo["user_ID"];
+                $_SESSION["user_username"] = $userInfo["user_username"];
+                $_SESSION["user_email"] = $userInfo["user_email"];
+                $_SESSION["user_accountType"] = $userInfo["user_accountType"];
+                $_SESSION["user_uploadedDocuments"] = (int)$userInfo["user_uploadedDocuments"];
                 
             } catch(\Exception $e) {
                 $error = $e->getMessage();

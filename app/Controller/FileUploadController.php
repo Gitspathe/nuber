@@ -1,9 +1,9 @@
 <?php
 namespace App\Controller;
 
-require(APP_DIR . '/Model/FileUploadModel.php');
+require(APP_DIR . "/Model/FileUploadModel.php");
 
-class FileUploadController
+class FileUploadController extends \App\Helper\DatabaseHandler
 {
     private $model;
 
@@ -12,8 +12,13 @@ class FileUploadController
         $this->model = new \App\Model\FileUploadModel();
     }
 
-    function handleImageUpload($fileParam, $fileName) 
+    protected function handleUpload($fileParam, $fileName) 
     {
+        // File was not uploaded.
+        if($_FILES[$fileParam]["name"] == "") {
+            throw new \Exception("No file was uploaded.");
+        }
+
         $originalFileName = basename($_FILES[$fileParam]["name"]);
         $imageFileType = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
 
@@ -43,11 +48,36 @@ class FileUploadController
        throw new \Exception("An error occured while uploading the file.");
     }
 
+    protected function updateDocumentsCheck($val) {
+        $pdo = $this->connect()->prepare("UPDATE users SET user_uploadedDocuments = ? WHERE user_ID = ?;");
+        $userID = (int)$_SESSION["user_id"];
+
+        if(!$pdo->execute(array($val, $userID))) {
+            $pdo = null;
+            throw new \Exception("DATABASE ERROR.");
+        }
+
+        $pdo = null;
+    }
+
     public function output()
     {
         $model = $this->model;
         $controller = $this;
         $error = null;
+
+        // User pressed submit files button.
+        if(isset($_POST['SubmitButton'])) {
+            try {
+                $this->handleUpload("documents", (string)$_SESSION["user_id"] . "_documents");
+                $this->updateDocumentsCheck(1);
+                $_SESSION["user_uploadedDocuments"] = 1;
+                header("location: landing.php");
+                exit;
+            } catch(\Exception $e) {
+                $error = $e->getMessage();
+            }
+        }
 
         require_once APP_DIR . '/View/FileUploadView.php';
     }

@@ -1,7 +1,9 @@
 <?php
 namespace App\Controller;
 
+require(APP_DIR . "/Helper/DatabaseHandler.php");
 require(APP_DIR . "/Controller/FileUploadController.php");
+require(APP_DIR . "/Model/LandingModel.php");
 
 class LandingController
 {
