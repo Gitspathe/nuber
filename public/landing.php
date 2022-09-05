@@ -14,6 +14,7 @@ require(APP_DIR . '/Controller/LandingController.php');
 
     <link rel="stylesheet" href="Style/material.min.css">
     <link rel="stylesheet" href="Style/material_icons.css">
+    <link rel="stylesheet" href="Style/landing_dashboard_style.css">
     <script src="Style/material.min.js"></script>
 </head>
 

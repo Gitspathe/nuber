@@ -1,5 +1,3 @@
-<h1>PROTOTYPE LANDING PAGE</h1>
-
 <?php
 
 session_start();
@@ -20,7 +18,7 @@ if($_SESSION["user_accountType"] === "driver" && $_SESSION["user_uploadedDocumen
     $uploadController->output();
 } else {
     // Regular landing page.
-    print "<p>Welcome, " . $_SESSION["user_username"] . "</p>";
+    require(APP_DIR . "/View/LandingDashboardView.php");
 }
 
 ?>
