@@ -12,10 +12,10 @@ require(APP_DIR . '/Controller/LandingController.php');
     <meta name="description" content="Nuber. Uber - but with an N in front of it.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-    <link rel="stylesheet" href="Style/material.min.css">
-    <link rel="stylesheet" href="Style/material_icons.css">
-    <link rel="stylesheet" href="Style/landing_dashboard_style.css">
-    <script src="Style/material.min.js"></script>
+    <link rel="stylesheet" href="style/material.min.css">
+    <link rel="stylesheet" href="style/material_icons.css">
+    <link rel="stylesheet" href="style/landing_dashboard_style.css">
+    <script src="style/material.min.js"></script>
 </head>
 
 <body>
