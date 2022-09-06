@@ -34,7 +34,7 @@ class SignupController extends \App\Helper\DatabaseHandler
 
         if(!$pdo->execute(array($username, $email))) {
             $pdo = null;
-            throw new \Exception("DATABASE ERROR.");
+            throw new \Exception("Database error: " . $pdo->errorInfo());
         }
 
         if($pdo->rowCount() > 0) {
@@ -55,7 +55,7 @@ class SignupController extends \App\Helper\DatabaseHandler
 
         if(!$pdo->execute(array($username, $email, $hashedPassword, $accountType))) {
             $pdo = null;
-            throw new \Exception("DATABASE ERROR.");
+            throw new \Exception("Database error: " . $pdo->errorInfo());
         }
         $pdo = null;
     }
@@ -68,11 +68,11 @@ class SignupController extends \App\Helper\DatabaseHandler
 
         if(!$pdo->execute(array($username))) {
             $pdo = null;
-            throw new \Exception("DATABASE ERROR.");
+            throw new \Exception("Database error: " . $pdo->errorInfo());
         }
         if($pdo->rowCount() == 0) {
             $pdo = null;
-            throw new \Exception("DATABASE ERROR.");
+            throw new \Exception("Database error: " . $pdo->errorInfo());
         }
 
         $ret = $pdo->fetchAll(\PDO::FETCH_ASSOC)[0];

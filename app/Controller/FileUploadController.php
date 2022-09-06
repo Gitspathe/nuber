@@ -54,7 +54,7 @@ class FileUploadController extends \App\Helper\DatabaseHandler
 
         if(!$pdo->execute(array($val, $userID))) {
             $pdo = null;
-            throw new \Exception("DATABASE ERROR.");
+            throw new \Exception("Database error: " . $pdo->errorInfo());
         }
 
         $pdo = null;

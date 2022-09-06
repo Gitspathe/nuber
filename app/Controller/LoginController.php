@@ -31,7 +31,7 @@ class LoginController extends \App\Helper\DatabaseHandler
 
         if(!$pdo->execute(array($username))) {
             $pdo = null;
-            throw new \Exception("DATABASE ERROR.");
+            throw new \Exception("Database error: " . $pdo->errorInfo());
         }
         if($pdo->rowCount() == 0) {
             $pdo = null;
@@ -56,11 +56,11 @@ class LoginController extends \App\Helper\DatabaseHandler
 
         if(!$pdo->execute(array($username))) {
             $pdo = null;
-            throw new \Exception("DATABASE ERROR.");
+            throw new \Exception("Database error: " . $pdo->errorInfo());
         }
         if($pdo->rowCount() == 0) {
             $pdo = null;
-            throw new \Exception("DATABASE ERROR.");
+            throw new \Exception("Database error: " . $pdo->errorInfo());
         }
 
         $ret = $pdo->fetchAll(\PDO::FETCH_ASSOC)[0];

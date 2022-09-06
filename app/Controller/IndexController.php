@@ -18,6 +18,7 @@ class IndexController
         $controller = $this;
         $error = null;
 
+        // User has signed out, so reset session variables.
         if(isset($_GET["action"])) {
             session_start();
             if($_GET["action"] === "signout") {

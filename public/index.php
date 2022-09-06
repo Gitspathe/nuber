@@ -28,6 +28,4 @@ $controller->output();
 ?>
 
 </body>
-
-</body>
 </html>
