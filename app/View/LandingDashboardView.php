@@ -34,19 +34,52 @@
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
         <div class="mdl-grid demo-content">
-          <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
-            <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
-              <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
-                <h2 class="mdl-card__title-text">Updates</h2>
+          <?php 
+          if($_SESSION["user_accountType"] === "driver") {
+            $fileUpload = new \App\Controller\FileUploadController();
+            $fileUpload->output();
+
+            if($_SESSION["user_uploadedDocuments"] === 1) { ?>
+            <div class="mdl-card card mdl-shadow--4dp">
+              <div class="mdl-card__title mdl-color--teal-400">
+                <h2 class="mdl-card__title-text mdl-color-text--white">Driver only stuff</h2>
               </div>
-              <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                Non dolore elit adipisicing ea reprehenderit consectetur culpa.
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-                <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect">Read More</a>
+              <div class="mdl-card__supporting-text">
+                This menu thing doesn't do anything. But it exists to show that drivers and customers are able to access different resources.
+                I'm currently making this text as large as possible in order to make it appear very professional and legit. Very cool and amazing.
               </div>
             </div>
+            <div class="mdl-card card mdl-shadow--4dp">
+              <div class="mdl-card__title mdl-color--teal-400">
+                <h2 class="mdl-card__title-text mdl-color-text--white">Even more info</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                lol
+              </div>
+            </div>
+          
+          <?php } 
+        } else if($_SESSION["user_accountType"] === "customer") { ?>
+          <div class="mdl-card card mdl-shadow--4dp">
+            <div class="mdl-card__title mdl-color--teal-400" >
+              <h2 class="mdl-card__title-text mdl-color-text--white">Customer only stuff</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                NUBER prides itself on providing the highest possible quality service. Every driver goes through a rigorous training program of which
+                only 10% survive.
+                <br><br><a href="https://youtu.be/6wqzZOFOcYo">Here's a video of one of our professional drivers!</a>
+            </div>
           </div>
+          <div class="mdl-card card mdl-shadow--4dp">
+            <div class="mdl-card__title mdl-color--teal-400" >
+              <h2 class="mdl-card__title-text mdl-color-text--white">Statistics</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                EXAMPLE CARD WITH STUFF
+            </div>
+          </div>
+        <?php } ?>
+
         </div>
       </main>
     </div>

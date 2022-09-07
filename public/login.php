@@ -14,6 +14,7 @@ require(APP_DIR . '/Controller/LoginController.php');
 
     <link rel="stylesheet" href="style/material.min.css">
     <link rel="stylesheet" href="style/material_icons.css">
+    <link rel="stylesheet" href="style/home_style.css">
     <script src="style/material.min.js"></script>
 </head>
 
