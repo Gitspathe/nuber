@@ -28,24 +28,20 @@ class FileUploadController extends \App\Helper\DatabaseHandler
         $targetFile = $targetDir . $fileName . "." . $imageFileType;
         $targetFileName = $fileName . "." . $imageFileType;
 
-        // File cannot already exist.
-        if (file_exists($targetFile)) {
-            throw new \Exception("File already exists.");
-        }
         // File size limit. (50 MB)
         if ($_FILES[$fileParam]["size"] > 50000000) {
             throw new \Exception("File is too large - maximum 50mb.");
         }
         // File types allowed.
         if($imageFileType != "zip" && $imageFileType != "7z" && $imageFileType != "tar") {
-            throw new \Exception("Only zip, 7z and tar archive uploads are allowed.");
+            throw new \Exception("Invalid file type - please upload a zip, 7z or tar archive.");
         }
 
         if (move_uploaded_file($_FILES[$fileParam]["tmp_name"], $targetFile)) {
             return $targetFileName;
-        } 
+        }
         
-       throw new \Exception("An error occured while uploading the file.");
+        throw new \Exception("An error occured while uploading the file.");
     }
 
     protected function updateDocumentsCheck($val) {
@@ -65,6 +61,7 @@ class FileUploadController extends \App\Helper\DatabaseHandler
         $model = $this->model;
         $controller = $this;
         $error = null;
+        $showSuccessMessage = false;
 
         // User pressed submit files button.
         if(isset($_POST['SubmitButton'])) {
@@ -72,13 +69,11 @@ class FileUploadController extends \App\Helper\DatabaseHandler
                 $this->handleUpload("documents", (string)$_SESSION["user_id"] . "_documents");
                 $this->updateDocumentsCheck(1);
                 $_SESSION["user_uploadedDocuments"] = 1;
-                header("location: landing.php");
-                exit;
+                $showSuccessMessage = true;
             } catch(\Exception $e) {
                 $error = $e->getMessage();
             }
         }
-
         require_once APP_DIR . '/View/FileUploadView.php';
     }
 }
