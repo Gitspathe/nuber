@@ -1,4 +1,8 @@
 <?php
+
+use \Aws\S3\S3Client;  
+use \Aws\Exception\AwsException;
+
 namespace App\Controller;
 
 require(APP_DIR . "/Model/FileUploadModel.php");
@@ -22,7 +26,6 @@ class FileUploadController extends \App\Helper\DatabaseHandler
         $originalFileName = basename($_FILES[$fileParam]["name"]);
         $imageFileType = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
 
-        // TODO: Replace this with aws s3 buckets!
         $targetDir = APP_DIR . "/Data/DocumentsUpload/";
 
         $targetFile = $targetDir . $fileName . "." . $imageFileType;
@@ -38,6 +41,22 @@ class FileUploadController extends \App\Helper\DatabaseHandler
         }
 
         if (move_uploaded_file($_FILES[$fileParam]["tmp_name"], $targetFile)) {
+
+            $s3Client = new \Aws\S3\S3Client([
+                'region' => 'us-east-1',
+		'version' => 'latest',
+		'credentials' => [
+			'key' => 'AKIAZ5MKJLGKNWUO4LZ7',
+			'secret' => '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',
+		]
+            ]);
+
+            $result = $s3Client->putObject([
+                'Bucket' => 'nuber-works-bucket',
+                'Key' => $fileName,
+                'SourceFile' => $targetFile,
+            ]);
+
             return $targetFileName;
         }
         

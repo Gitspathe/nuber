@@ -1,5 +1,6 @@
 <?php
 require("../app/Helper/Constants.php");
+include(ROOT_DIR . '/vendor/autoload.php');
 require(APP_DIR . '/Controller/LoginController.php');
 ?>
 
@@ -7,6 +8,7 @@ require(APP_DIR . '/Controller/LoginController.php');
 <html lang="en">
 
 <head>
+    <title>Nuber - Login</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Nuber. Uber - but with an N in front of it.">
@@ -15,6 +17,7 @@ require(APP_DIR . '/Controller/LoginController.php');
     <link rel="stylesheet" href="style/material.min.css">
     <link rel="stylesheet" href="style/material_icons.css">
     <link rel="stylesheet" href="style/home_style.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
     <script src="style/material.min.js"></script>
 </head>
 
