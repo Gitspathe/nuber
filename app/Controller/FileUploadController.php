@@ -46,8 +46,8 @@ class FileUploadController extends \App\Helper\DatabaseHandler
                 'region' => 'us-east-1',
 		'version' => 'latest',
 		'credentials' => [
-			'key' => 'AKIAZ5MKJLGKNWUO4LZ7',
-			'secret' => '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',
+			'key' => 'AKIAZ5MKJLGKNWUO4LZ7',                         // Exposed credentials are fine since the acc is deleted completely.
+			'secret' => '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',  // *****************************************************************
 		]
             ]);
 
